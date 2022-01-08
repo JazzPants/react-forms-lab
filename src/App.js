@@ -4,7 +4,7 @@ import TwitterMessage from "./components/TwitterMessage";
 
 class App extends Component {
 
-  login = ({ username, password }) => {
+  login = ({ username, password }) => { //function takes object with two arguments
     console.log(`Logging in ${username} with password ${password}`);
   };
 

@@ -4,22 +4,40 @@ class LoginForm extends React.Component {
   constructor() {
     super();
 
-    this.state = {};
+    this.state = {
+      username: "",
+      password: ""
+    };
   }
+
+handleInputChange = (event) => {
+  let name = event.target.name; //getting data from DOM input element, either element with name username or element with name password
+  this.setState({
+    [name]: event.target.value
+  })
+}
+
+handleSubmit = (event) => {
+  event.preventDefault();
+  if(this.state.username.length > 0 && this.state.password.length > 0) {
+    //call handleLogin callback function prop from App.js
+    this.props.handleLogin({username: this.state.username, password: this.state.password}) //logs in with user affected state
+  } //object needs to be key:value format! e.g. you can't just use this.state username, this.state.password
+}
 
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <div>
           <label>
             Username
-            <input id="username" name="username" type="text" />
+            <input id="username" name="username" type="text" value={this.state.username} onChange={this.handleInputChange}/>
           </label>
         </div>
         <div>
           <label>
             Password
-            <input id="password" name="password" type="password" />
+            <input id="password" name="password" type="password" value={this.state.password} onChange={this.handleInputChange}/>
           </label>
         </div>
         <div>
