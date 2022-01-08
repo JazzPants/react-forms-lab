@@ -6,7 +6,8 @@ class LoginForm extends React.Component {
 
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      error: ""
     };
   }
 
@@ -20,9 +21,17 @@ handleInputChange = (event) => {
 handleSubmit = (event) => {
   event.preventDefault();
   if(this.state.username.length > 0 && this.state.password.length > 0) {
+    this.setState({ //reset error message if condition satisfied!
+      error: ""
+    }) 
     //call handleLogin callback function prop from App.js
     this.props.handleLogin({username: this.state.username, password: this.state.password}) //logs in with user affected state
   } //object needs to be key:value format! e.g. you can't just use this.state username, this.state.password
+  else {
+    this.setState({
+      error: "You need to fill in username and password"
+    })
+  }
 }
 
   render() {
@@ -40,6 +49,7 @@ handleSubmit = (event) => {
             <input id="password" name="password" type="password" value={this.state.password} onChange={this.handleInputChange}/>
           </label>
         </div>
+        <div>{this.state.error}</div>
         <div>
           <button type="submit">Log in</button>
         </div>
@@ -48,4 +58,5 @@ handleSubmit = (event) => {
   }
 }
 
+//error message, div with no content if there is no login error!
 export default LoginForm;
